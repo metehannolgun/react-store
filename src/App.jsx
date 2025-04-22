@@ -1,6 +1,6 @@
 import React from 'react'
 import {createBrowserRouter, Router, RouterProvider} from 'react-router-dom'
-import MainLayout from './layouts/MainLayout.jsx'
+import MainLayout from './layouts/Main.jsx'
 import HomePage from './pages/Home.jsx'
 import ProductsPage from './pages/Products.jsx'
 import CartPage from './pages/Cart.jsx'

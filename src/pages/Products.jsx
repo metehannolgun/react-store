@@ -1,17 +1,32 @@
-import React, { use } from 'react'
+import React, { useState,useEffect } from 'react'
+import ProductList from '../components/ProductList'
 
-const ProductsPage = () => {
+  const ProductsPage = () => {
   const [loadedProducts, setLoadedProducts] = useState([])
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     async function fetchProducts() {
-      const response = await fetch('http://localhost:5000/products');
-      const data = await response.json();
-      setLoadedProducts(data);
+      try {
+        const response = await fetch('http://localhost:5000/products');
+        const data = await response.json();
+        setLoadedProducts(data);
+      }
+      catch (error) {
+        console.error('Error fetching products:', error);
+      }
+      finally
+      {
+
+      }setLoading(false);
+     
     }
     fetchProducts();
   }, [])
-  return (
-    <h1>ProductsPage</h1>
+    if (loading) {
+      return <h1>Loading...</h1>;
+    }
+    return (
+      <ProductList products={loadedProducts} />
   )
 }
 
