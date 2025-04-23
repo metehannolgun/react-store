@@ -22,8 +22,8 @@ const Navbar = () => {
                 <IconButton color='inherit'>
                     <StorefrontIcon/>
                 </IconButton>
-                {links.map((link)=>(
-                    <Button key={link.to} component={NavLink} to={link.to} color="inherit">
+                {links.map((link) => (
+                    <Button key={link.path} component={NavLink} to={link.path} color="inherit">
                         {link.title}
                     </Button>
                 ))}
@@ -39,8 +39,8 @@ const Navbar = () => {
                         <ShoppingCartIcon/>
                     </Badge>
                 </IconButton>
-                {authLinks.map((link)=>(
-                    <Button  key={link.to} component={NavLink} to={link.to} color="inherit">
+                {authLinks.map((link) => (
+                    <Button key={link.path} component={NavLink} to={link.path} color="inherit">
                         {link.title}
                     </Button>
                 ))}
