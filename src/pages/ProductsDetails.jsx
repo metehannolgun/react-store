@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import ProductItem from '../components/ProductItem';
 
 const ProductsDetailsPage = () => {
   const { id } = useParams();
@@ -25,9 +26,9 @@ const ProductsDetailsPage = () => {
   if (loading) return <h1>Loading...</h1>;
 
   return (
-    <div>
-      <h1>{product?.title}</h1>
-    </div>
+    <ProductItem product={product} /> // product state'ini ProductItem bileşenine gönderiyoruz.
+  // ProductItem bileşeni, product state'ini alarak ürünü görüntüleyecek.
+   
   );
 };
 
