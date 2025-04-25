@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductItem from '../components/ProductItem';
+import Loading from '../components/Loading';
+import request from '../api/apiClient'; // API'den veri çekmek için kullanacağımız fonksiyonları içe aktarıyoruz.
 
 const ProductsDetailsPage = () => {
   const { id } = useParams();
@@ -10,8 +12,7 @@ const ProductsDetailsPage = () => {
   useEffect(() => {
     async function fetchProductDetails() {
       try {
-        const response = await fetch("http://localhost:5000/products/" + id); // API'den ürün detaylarını alıyoruz.
-        const data = await response.json(); // gelen veriyi JSON formatına çeviriyoruz.
+        const data = await request.products.details(id) // API'den ürün detaylarını alıyoruz.
         setProduct(data); // gelen veriyi product state'ine atıyoruz.
       } catch (error) {
         console.log(error);
@@ -23,7 +24,7 @@ const ProductsDetailsPage = () => {
     fetchProductDetails(); // yazdığımız fonksiyonu çağırıyoruz
   }, [id]);
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return <Loading/>
 
   return (
     <ProductItem product={product} /> // product state'ini ProductItem bileşenine gönderiyoruz.

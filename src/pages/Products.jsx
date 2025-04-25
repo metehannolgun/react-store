@@ -1,5 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import ProductList from '../components/ProductList'
+import Loading from '../components/Loading'
+import request from '../api/apiClient' // API'den veri çekmek için kullanacağımız fonksiyonları içe aktarıyoruz.
 
   const ProductsPage = () => {
   const [loadedProducts, setLoadedProducts] = useState([])
@@ -7,8 +9,8 @@ import ProductList from '../components/ProductList'
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch('http://localhost:5000/products');
-        const data = await response.json();
+        const data = await request.products.list(); // API'den ürün listesini alıyoruz.
+        
         setLoadedProducts(data);
       }
       catch (error) {
@@ -23,7 +25,7 @@ import ProductList from '../components/ProductList'
     fetchProducts();
   }, [])
     if (loading) {
-      return <h1>Loading...</h1>;
+      return <Loading /> // Loading bileşenini burada kullanıyoruz. Loading bileşeni, loading state'i true olduğunda gösterilecek.
     }
     return (
       <ProductList products={loadedProducts} />
