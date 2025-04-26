@@ -1,6 +1,21 @@
 import axios from 'axios';
+import {toast} from 'react-toastify';
 
 axios.defaults.baseURL = 'http://localhost:5000/'; // Replace with your API base URL
+
+axios.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (error) => {
+        const {data, status} = error.response;
+        switch(status){
+            case 404:
+                toast.error(data.message);
+        }
+        return Promise.reject(error.message);
+    }
+);
 
 const methods = {
     get: (url) => axios.get(url).then((response)=> response.data),
@@ -10,8 +25,8 @@ const methods = {
 };
 
 const products = {
-    list: () => methods.get('products'),
-    details: (id) => methods.get(`products/${id}`),
+    list: () => methods.get('products'), 
+    details: (id) => methods.get(`products/${id}`), 
 };
 
 const requests = {

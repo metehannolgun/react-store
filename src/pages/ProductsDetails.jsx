@@ -26,6 +26,8 @@ const ProductsDetailsPage = () => {
 
   if (loading) return <Loading/>
 
+  if(!product) return <div>Ürün bulunamadı</div> // Eğer product yoksa hata mesajı gösteriyoruz.
+
   return (
     <ProductItem product={product} /> // product state'ini ProductItem bileşenine gönderiyoruz.
   // ProductItem bileşeni, product state'ini alarak ürünü görüntüleyecek.
