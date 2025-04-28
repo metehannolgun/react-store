@@ -3,15 +3,30 @@ import {toast} from 'react-toastify';
 
 axios.defaults.baseURL = 'http://localhost:5000/'; // Replace with your API base URL
 
-axios.interceptors.response.use(
+axios.interceptors.response.use( 
     (response) => {
         return response;
     },
     (error) => {
-        const {data, status} = error.response;
+        const {data, status} = error.response; 
         switch(status){
+            case 400:
+                toast.error(data.message);
+                break;
+            case 401:
+                toast.error(data.message);
+                break;
+            case 403:
+                toast.error(data.message);
+                break;
             case 404:
                 toast.error(data.message);
+                break;
+            case 500:
+                toast.error(data.message);
+                break;
+            default:
+                break;
         }
         return Promise.reject(error.message);
     }
@@ -29,7 +44,16 @@ const products = {
     details: (id) => methods.get(`products/${id}`), 
 };
 
+const errors = {
+    get400Error: () => methods.get('errors/bad-request').catch(error => console.log(error)),
+    get401Error: () => methods.get('errors/unauthorized').catch(error => console.log(error)),
+    get403Error: () => methods.get('errors/validation-error').catch(error => console.log(error)),
+    get404Error: () => methods.get('errors/not-found').catch(error => console.log(error)),
+    get500Error: () => methods.get('errors/server-error').catch(error => console.log(error)),
+};
+
 const requests = {
     products,
+    errors,
 }
 export default requests;

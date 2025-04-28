@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 const links = [
     {title: 'Home', path: '/'},
     {title: 'Products', path: '/products'},
+    {title: "Error", path: '/errors'},
 ]
 const authLinks = [
     {title: 'Login', path: '/login'},
