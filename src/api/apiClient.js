@@ -1,5 +1,7 @@
 import axios from 'axios';
 import {toast} from 'react-toastify';
+import {router} from '../App.jsx';
+
 
 axios.defaults.baseURL = 'http://localhost:5000/'; // Replace with your API base URL
 
@@ -20,10 +22,12 @@ axios.interceptors.response.use(
                 toast.error(data.message);
                 break;
             case 404:
-                toast.error(data.message);
+                router.navigate("/errors/not-found")
                 break;
             case 500:
-                toast.error(data.message);
+                router.navigate("/errors/server-error", {
+                    state: {error: data, status: status},
+                });
                 break;
             default:
                 break;

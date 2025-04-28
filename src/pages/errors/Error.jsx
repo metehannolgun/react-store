@@ -1,5 +1,5 @@
 import React from 'react'
-import requests from '../api/apiClient'
+import requests from '../../api/apiClient'
 import { Box, Button } from '@mui/material'
 
 const ErrorPage = () => {
