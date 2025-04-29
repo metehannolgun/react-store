@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {createBrowserRouter, Router, RouterProvider} from 'react-router-dom'
 import MainLayout from './layouts/Main.jsx'
 import HomePage from './pages/Home.jsx'
@@ -10,6 +10,7 @@ import ProductsDetailsPage from './pages/ProductsDetails.jsx'
 import ErrorPage from './pages/errors/Error.jsx'
 import ServerErrorPage from './pages/errors/ServerError.jsx'
 import NotFoundPage from './pages/errors/NotFound.jsx'
+import requests from './api/apiClient.js'
 
 export const router = createBrowserRouter([
   {path: '/', element: <MainLayout />, 
@@ -41,6 +42,13 @@ export const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  
+  useEffect(()=> {
+    requests.cart.get()
+      .then(cart => console.log(cart))
+      .catch((error) => console.log(error));
+
+  }, []);
   return (
     <RouterProvider router={router} />
   )
