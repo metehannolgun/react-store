@@ -5,14 +5,16 @@ import { Link } from 'react-router-dom'
 import { currenyTRY } from '../utils/format'
 import requests from '../api/apiClient'
 import { useState } from 'react'
+import { useCartContext } from '../context/CartContext'
 
 
 const ProductCard = ({product}) => {
     const [loading, setLoading] = useState(false);
+    const {setCart} = useCartContext();
     function handleAddItem(productId) {
         setLoading(true);
         requests.cart.addItem(productId,1)
-            .then(cart => console.log(cart))
+            .then(cart => setCart(cart))
             .catch(error => console.log(error))
             .finally(() => setLoading(false));
         }

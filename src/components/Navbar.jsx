@@ -4,6 +4,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront'
 import { NavLink } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { Link } from 'react-router-dom'
+import { useCartContext } from '../context/CartContext'
 
 const links = [
     {title: 'Home', path: '/'},
@@ -16,6 +17,8 @@ const authLinks = [
 ]
 
 const Navbar = () => {
+    const {cart} = useCartContext();
+    const itemCount = cart?.cartItems.reduce((total,item) => total + item.product.quantity,0);
   return (
     <AppBar position='static' sx={{backgroundColor: 'secondary.light'}}>
         <Toolbar>
@@ -36,7 +39,7 @@ const Navbar = () => {
                 size="large"
                 edge="start"
                 >
-                    <Badge badgeContent="2" color='secondary'>
+                    <Badge badgeContent={itemCount} color='secondary'>
                         <ShoppingCartIcon/>
                     </Badge>
                 </IconButton>

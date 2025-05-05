@@ -11,6 +11,7 @@ import ErrorPage from './pages/errors/Error.jsx'
 import ServerErrorPage from './pages/errors/ServerError.jsx'
 import NotFoundPage from './pages/errors/NotFound.jsx'
 import requests from './api/apiClient.js'
+import { useCartContext } from './context/CartContext.jsx'
 
 export const router = createBrowserRouter([
   {path: '/', element: <MainLayout />, 
@@ -42,10 +43,11 @@ export const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const {setCart} = useCartContext();
   
   useEffect(()=> {
     requests.cart.get()
-      .then(cart => console.log(cart))
+      .then(cart => setCart(cart))
       .catch((error) => console.log(error));
 
   }, []);
