@@ -1,7 +1,9 @@
 import React from 'react'
-import { Grid, Paper, Typography } from '@mui/material'
+import { Grid, Paper, Typography, Button, Stack, CircularProgress } from '@mui/material'
+import { currenyTRY } from '../utils/format'
+import ReportIcon from '@mui/icons-material/Report'
 
-const ProductItem = ({product}) => {
+const ProductItem = ({product, handleAddItem, cartItem, isAdding}) => {
   return (
     <Grid container spacing={2}>
         <Grid size={{lg:4, md:5, sm:6, xs: 12}}>
@@ -19,6 +21,25 @@ const ProductItem = ({product}) => {
                 <Typography variant='body1'>
                     {product.description}
                 </Typography>
+                <Typography variant='h5' color='secondary' sx={{mt: 3}}> 
+                    {currenyTRY.format(product.price)}
+                </Typography>
+                <Stack direction="row" display="flex" alignItems="center" gap={2} sx={{mt: 3}}>
+
+                
+                <Button onClick={() => handleAddItem(product.id)} variant="contained" color= "secondary">
+                    Sepete Ekle
+                </Button>
+
+                {cartItem?.product.quantity > 0 && (
+                    <Typography variant='body2' sx={{display: "flex", alignItems: "center",}}>
+                        <ReportIcon color='secondary' /> Sepetinizde {cartItem.product.quantity} adet eklendi.
+                    </Typography>
+                )}
+
+                {isAdding && <CircularProgress size="20px" />}
+
+                </Stack>
 
             </Paper>
         </Grid>
